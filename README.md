@@ -77,6 +77,7 @@ action_result.parameter.super_admin_user_password | string |  |
 action_result.parameter.token | string |  |   0056121890128 
 action_result.data | string |  |  
 action_result.message | string |  |  
+action_result.summary | string |  |  
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
@@ -105,5 +106,6 @@ action_result.parameter.token | string |  |   0056121890128
 action_result.status | string |  |  
 action_result.data | string |  |  
 action_result.message | string |  |  
+action_result.summary | string |  |  
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1 
