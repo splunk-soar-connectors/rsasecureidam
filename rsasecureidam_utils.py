@@ -13,13 +13,11 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
-import paramiko
-import time
 import socket
-from bs4 import UnicodeDammit
-import re
 import time
-import base64
+
+import paramiko
+from bs4 import UnicodeDammit
 
 try:
     from urlparse import urlparse
@@ -27,6 +25,7 @@ except Exception:
     from urllib.parse import urlparse
 
 from rsasecureidam_consts import *
+
 
 class RSASecureIdAMUtils(object):
 
@@ -53,7 +52,7 @@ class RSASecureIdAMUtils(object):
             return False, "SSH connection attempt failed. Please enter valid values for 'ssh_username' and 'ssh_password' asset parameters", e
 
         return True, "SSH connection successful", None
-    
+
     def _send_command(self, input_data, timeout=0):
         """
            Args:
@@ -87,7 +86,7 @@ class RSASecureIdAMUtils(object):
                 f.write(input_data)
                 f.close()
             except Exception as e:
-                return False, "Error in creating input file", -1
+                return False, "Error in creating input file. {}".format(e), -1
 
             trans = self._ssh_client.get_transport()
             self._shell_channel = trans.open_session()
@@ -173,16 +172,15 @@ class RSASecureIdAMUtils(object):
         token = param["token"]
         self.super_admin_user = param.get("super_admin_user")
         self.super_admin_user_password = param.get("super_admin_user_password")
-        data  = RSA_HEADER_LINE
+        data = RSA_HEADER_LINE
         data += RSA_ENABLE_TOKEN_QUERY.format(token=token)
         return self._send_command(data)
-
 
     def disable_token(self, param):
         self._connector.debug_print(f"param: {param}")
         token = param["token"]
         self.super_admin_user = param.get("super_admin_user")
         self.super_admin_user_password = param.get("super_admin_user_password")
-        data  = RSA_HEADER_LINE
+        data = RSA_HEADER_LINE
         data += RSA_DISABLE_TOKEN_QUERY.format(token=token)
         return self._send_command(data)

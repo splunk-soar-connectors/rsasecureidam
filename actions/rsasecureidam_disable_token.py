@@ -18,8 +18,9 @@ import phantom.app as phantom
 import rsasecureidam_consts as consts
 from actions import BaseAction
 
+
 class DisableToken(BaseAction):
-    
+
     def execute(self):
         self._connector.save_progress("In action handler for: {0}".format(self._connector.get_action_identifier()))
         # self.token = self._param.get('token')

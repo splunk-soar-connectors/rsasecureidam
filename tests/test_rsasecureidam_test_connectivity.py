@@ -17,9 +17,10 @@ import json
 import unittest
 from unittest.mock import patch
 
-import rsasecureidam_consts as consts
+# import rsasecureidam_consts as consts
 from rsasecureidam_connector import RsaSecureidAM
 from tests import rsasecureidam_config
+
 
 @patch("rsasecureidam_utils.start_connection")
 class TestConnectivityAction(unittest.TestCase):
@@ -40,7 +41,7 @@ class TestConnectivityAction(unittest.TestCase):
 
         mock_get.return_value.ret_val = True
         mock_get.return_value.response = "SSH connection successful"
-        
+
         ret_val = self.connector._handle_action(json.dumps(self.test_json), None)
         ret_val = json.loads(ret_val)
         print(ret_val)

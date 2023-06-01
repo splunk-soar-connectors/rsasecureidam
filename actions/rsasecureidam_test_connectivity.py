@@ -15,8 +15,9 @@
 
 import phantom.app as phantom
 
-import rsasecureidam_consts as consts
+# import rsasecureidam_consts as consts
 from actions import BaseAction
+
 
 class TestConnectivity(BaseAction):
 
@@ -27,10 +28,9 @@ class TestConnectivity(BaseAction):
         ret_val, response, error_message = self._connector.utils._start_connection()
 
         if phantom.is_fail(ret_val):
-            self._action_result.set_status(phantom.APP_ERROR,response)
+            self._action_result.set_status(phantom.APP_ERROR, response)
             self._connector.save_progress("Test Connectivity Failed")
             return self._action_result.get_status(), error_message
 
         self._connector.save_progress("Test Connectivity Passed")
         return self._action_result.set_status(phantom.APP_SUCCESS), response
-

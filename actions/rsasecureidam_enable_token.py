@@ -18,6 +18,7 @@ import phantom.app as phantom
 import rsasecureidam_consts as consts
 from actions import BaseAction
 
+
 class EnableToken(BaseAction):
 
     def execute(self):

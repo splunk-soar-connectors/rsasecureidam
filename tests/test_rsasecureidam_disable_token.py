@@ -15,11 +15,13 @@
 
 import json
 import unittest
-from unittest.mock import patch
 
-import rsasecureidam_consts as consts
+# import rsasecureidam_consts as consts
 from rsasecureidam_connector import RsaSecureidAM
 from tests import rsasecureidam_config
+
+# from unittest.mock import patch
+
 
 class DisableTokenAction(unittest.TestCase):
     def setUp(self):
@@ -39,7 +41,6 @@ class DisableTokenAction(unittest.TestCase):
             "token": "001883707613"
         }]
 
-
         ret_val = self._connector._handle_action(json.dumps(self.test_json), None)
         ret_val = json.loads(ret_val)
         print(ret_val)
@@ -48,7 +49,6 @@ class DisableTokenAction(unittest.TestCase):
         self.assertEqual(ret_val['result_summary']['total_objects_successful'], 1)
         self.assertEqual(ret_val['status'], 'success')
 
-    
     def test_disable_token_invalid(self):
         """
         Test the invalid case for the disable token action.

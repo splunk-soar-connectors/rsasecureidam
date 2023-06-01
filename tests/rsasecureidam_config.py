@@ -9,9 +9,9 @@ TEST_JSON = {
         "main_module": "rsasecureidam_connector.py",
         "url": "https://base_url",
         "username": "username",
-        "password": "password",
+        "password": "password",    # pragma: allowlist secret
         "super_admin_user": "super_admin_user",
-        "super_admin_user_password": "super_admin_user_password"
+        "super_admin_user_password": "super_admin_user_password"    # pragma: allowlist secret
     },
     "debug_level": 3,
     "dec_key": DEFAULT_ASSET_ID,

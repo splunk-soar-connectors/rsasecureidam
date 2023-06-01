@@ -15,21 +15,20 @@
 
 from __future__ import print_function, unicode_literals
 
-# Phantom App imports
-import phantom.app as phantom
-from phantom.base_connector import BaseConnector
-from phantom.action_result import ActionResult
-
-from actions import BaseAction
-from importlib import import_module
-
-import requests
 import json
 import sys
-from bs4 import BeautifulSoup
+from importlib import import_module
 
+# Phantom App imports
+import phantom.app as phantom
+import requests
+# from bs4 import BeautifulSoup
+# from phantom.action_result import ActionResult
+from phantom.base_connector import BaseConnector
+
+# import rsasecureidam_consts as consts
+from actions import BaseAction
 from rsasecureidam_utils import RSASecureIdAMUtils
-import rsasecureidam_consts as consts
 
 
 class RetVal(tuple):
