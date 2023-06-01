@@ -1,0 +1,246 @@
+{
+    "appid": "2134d245-43c5-473a-a86f-53fa598bb28d",
+    "name": "RSA SecureID Authentication Manager",
+    "description": "RSA SucureID Authentication Manager app to enable and revoke RSA token",
+    "type": "network security",
+    "product_vendor": "RSA",
+    "logo": "logo_rsasecureidam.svg",
+    "logo_dark": "logo_rsasecureidam_dark.svg",
+    "product_name": "RSA SecureID Authentication Manager",
+    "python_version": "3",
+    "fips_compliant": true,
+    "product_version_regex": ".*",
+    "publisher": "Splunk",
+    "license": "Copyright (c) Splunk, 2023",
+    "app_version": "1.0.0",
+    "utctime_updated": "2023-02-03T12:07:55.817082Z",
+    "package_name": "phantom_rsasecureidam",
+    "main_module": "rsasecureidam_connector.py",
+    "min_phantom_version": "5.4.0",
+    "app_wizard_version": "1.0.0",
+    "configuration": {
+        "url": {
+            "description": "URL (e.g. https://10.10.10.10)",
+            "data_type": "string",
+            "required": true,
+            "order": 0
+        },
+        "username": {
+            "description": "SSH User",
+            "data_type": "string",
+            "required": true,
+            "order": 1
+        },
+        "password": {
+            "description": "Password For SSH User",
+            "data_type": "password",
+            "required": true,
+            "order": 2
+        }
+    },
+    "actions": [
+        {
+            "action": "test connectivity",
+            "identifier": "test_connectivity",
+            "description": "Validate the asset configuration for connectivity using supplied configuration",
+            "verbose": "",
+            "type": "test",
+            "read_only": true,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "enable token",
+            "identifier": "enable_token",
+            "verbose": "The token must be assigned to a user.",
+            "description": "Enables RSA SecureID token",
+            "type": "correct",
+            "read_only": false,
+            "undo": "disable token",
+            "parameters": {
+                "super_admin_user": {
+                    "description": "Super Admin User",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0
+                },
+                "super_admin_user_password": {
+                    "description": "Password For Super Admin User",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 1
+                },
+                "token": {
+                    "description": "Token serial of RSA SecureID token",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": false,
+                    "contains": [
+                        "rsa secureid token"
+                    ],
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_value": [
+                        "success",
+                        "failed"
+                    ],
+                    "column_name": "Status",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.parameter.super_admin_user",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.super_admin_user_password",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.token",
+                    "data_type": "string",
+                    "example_values": [
+                       "0056121890128"
+                    ],
+                    "column_name": "Token",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "width": 12,
+                "title": "Enable Token",
+                "type": "table",
+                "height": 5
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "disable token",
+            "identifier": "disable_token",
+            "description": "Disables RSA SecureID token",
+            "verbose": "The token must be assigned to a user.",
+            "type": "contain",
+            "read_only": false,
+            "undo": "enable token",
+            "parameters": {
+                "super_admin_user": {
+                    "description": "Super Admin User",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0
+                },
+                "super_admin_user_password": {
+                    "description": "Password For Super Admin User",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 1
+                },
+                "token": {
+                    "description": "Token serial of RSA SecureID token",
+                    "data_type": "string",
+                    "required": true,
+                    "primary": false,
+                    "contains": [
+                        "rsa secureid token"
+                    ],
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_value": [
+                        "success",
+                        "failed"
+                    ],
+                    "column_name": "Status",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.parameter.super_admin_user",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.super_admin_user_password",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.token",
+                    "data_type": "string",
+                    "example_values": [
+                       "0056121890128"
+                    ],
+                    "column_name": "Token",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_value": [
+                        "success",
+                        "failed"
+                    ],
+                    "column_name": "Status",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "width": 12,
+                "title": "Disable Token",
+                "type": "table",
+                "height": 5
+            },
+            "versions": "EQ(*)"
+        }
+    ]
+}
