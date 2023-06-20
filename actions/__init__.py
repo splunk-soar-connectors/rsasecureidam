@@ -1,6 +1,6 @@
 # File: __init__.py
 #
-# Copyright (c) None Splunk Inc.
+# Copyright (c) 2023 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
 
 from phantom.action_result import ActionResult
 
+from rsasecureidam_utils import RSASecureIdAMUtils
+
 
 class BaseAction:
     """Base Action class to generate the action objects."""
@@ -27,3 +29,4 @@ class BaseAction:
         self._action_result = connector.add_action_result(ActionResult(dict(param)))
         self._param = param
         self._config = connector.config
+        self.utils = RSASecureIdAMUtils(connector)

@@ -1,4 +1,4 @@
-# File: rsasecureidam_enable_token.py
+# File: rsasecureidam_list_tokens.py
 #
 # Copyright (c) 2023 Splunk Inc.
 #
@@ -16,19 +16,22 @@
 import phantom.app as phantom
 
 from actions import BaseAction
-from rsasecureidam_consts import RSA_TOKEN_ENABLE_MESSAGE
 
 
-class EnableToken(BaseAction):
+class ListTokens(BaseAction):
 
     def execute(self):
         self._connector.save_progress("In action handler for: {0}".format(self._connector.get_action_identifier()))
-        # self.token = self._param.get('token')
 
-        ret_val, response, _ = self.utils.enable_token(self._param)
+        ret_val, tokens = self.utils.list_tokens(self._action_result, self._param)
 
         if phantom.is_fail(ret_val):
-            self._action_result.set_status(phantom.APP_ERROR, response)
             return self._action_result.get_status()
 
-        return self._action_result.set_status(phantom.APP_SUCCESS, RSA_TOKEN_ENABLE_MESSAGE)
+        # self._action_result.add_data(tokens)
+        for token in tokens:
+            self._action_result.add_data(token)
+
+        self._action_result.update_summary({"total_tokens": len(tokens)})
+
+        return self._action_result.set_status(phantom.APP_SUCCESS, f"Total tokens: {len(tokens)}")

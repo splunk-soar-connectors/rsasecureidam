@@ -1,6 +1,6 @@
 # File: rsasecureidam_connector.py
 #
-# Copyright (c) None Splunk Inc.
+# Copyright (c) 2023 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,8 +12,6 @@
 # the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
-
-from __future__ import print_function, unicode_literals
 
 import json
 import sys
@@ -28,13 +26,6 @@ from phantom.base_connector import BaseConnector
 
 # import rsasecureidam_consts as consts
 from actions import BaseAction
-from rsasecureidam_utils import RSASecureIdAMUtils
-
-
-class RetVal(tuple):
-
-    def __new__(cls, val1, val2=None):
-        return tuple.__new__(RetVal, (val1, val2))
 
 
 class RsaSecureidAM(BaseConnector):
@@ -45,11 +36,6 @@ class RsaSecureidAM(BaseConnector):
         super(RsaSecureidAM, self).__init__()
 
         self._state = None
-
-        # Variable to hold a base_url in case the app makes REST calls
-        # Do note that the app json defines the asset config, so please
-        # modify this as you deem fit.
-        self._url = None
 
     def handle_action(self, param):
 
@@ -75,8 +61,6 @@ class RsaSecureidAM(BaseConnector):
 
         # get the asset config
         self.config = self.get_config()
-        self._url = self.config.get('url')
-        self.utils = RSASecureIdAMUtils(self)
 
         return phantom.APP_SUCCESS
 

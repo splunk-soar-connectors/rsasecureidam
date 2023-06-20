@@ -1,6 +1,6 @@
 # File: rsasecureidam_disable_token.py
 #
-# Copyright (c) None Splunk Inc.
+# Copyright (c) 2023 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,20 +15,20 @@
 
 import phantom.app as phantom
 
-import rsasecureidam_consts as consts
 from actions import BaseAction
+from rsasecureidam_consts import RSA_TOKEN_REVOKE_MESSAGE
 
 
-class DisableToken(BaseAction):
+class RevokeToken(BaseAction):
 
     def execute(self):
         self._connector.save_progress("In action handler for: {0}".format(self._connector.get_action_identifier()))
         # self.token = self._param.get('token')
 
-        ret_val, response, _ = self._connector.utils.disable_token(self._param)
+        ret_val, response, _ = self.utils.disable_token(self._param)
 
         if phantom.is_fail(ret_val):
             self._action_result.set_status(phantom.APP_ERROR, response)
             return self._action_result.get_status()
 
-        return self._action_result.set_status(phantom.APP_SUCCESS, consts.RSA_TOKEN_DISABLE_MESSAGE)
+        return self._action_result.set_status(phantom.APP_SUCCESS, RSA_TOKEN_REVOKE_MESSAGE)
