@@ -6,7 +6,7 @@ Connector Version: 1.0.0
 Product Vendor: RSA  
 Product Name: RSA SecureID Authentication Manager  
 Product Version Supported (regex): ".\*"  
-Minimum Product Version: 5.4.0  
+Minimum Product Version: 6.0.0  
 
 RSA SucureID Authentication Manager app to enable and revoke RSA token
 
@@ -32,14 +32,18 @@ The below configuration variables are required for this Connector to operate.  T
 
 VARIABLE | REQUIRED | TYPE | DESCRIPTION
 -------- | -------- | ---- | -----------
-**url** |  required  | string | URL (e.g. https://10.10.10.10)
+**hostname** |  required  | string | IP/Hostname (e.g. 10.10.10.10)
+**verify_server_cert** |  optional  | boolean | Verify server certificate
 **username** |  required  | string | SSH User
 **password** |  required  | password | Password For SSH User
+**super_admin_user** |  optional  | string | Super Admin User
+**super_admin_user_password** |  optional  | password | Password For Super Admin User
 
 ### Supported Actions  
 [test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration  
-[enable token](#action-enable-token) - Enables RSA SecureID token  
-[disable token](#action-disable-token) - Disables RSA SecureID token  
+[enable token](#action-enable-token) - Enables RSA SecureID token to grant user access  
+[revoke token](#action-revoke-token) - Revoke RSA SecureID token to block user access  
+[list tokens](#action-list-tokens) - List RSA SecureID tokens  
 
 ## action: 'test connectivity'
 Validate the asset configuration for connectivity using supplied configuration
@@ -54,9 +58,9 @@ No parameters are required for this action
 No Output  
 
 ## action: 'enable token'
-Enables RSA SecureID token
+Enables RSA SecureID token to grant user access
 
-Type: **correct**  
+Type: **generic**  
 Read only: **False**
 
 The token must be assigned to a user.
@@ -64,27 +68,23 @@ The token must be assigned to a user.
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**super_admin_user** |  required  | Super Admin User | string | 
-**super_admin_user_password** |  required  | Password For Super Admin User | string | 
-**token** |  required  | Token serial of RSA SecureID token | string |  `rsa secureid token` 
+**token_serial** |  required  | Token serial of RSA SecureID token | string |  `token` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string |  |  
-action_result.parameter.super_admin_user | string |  |  
-action_result.parameter.super_admin_user_password | string |  |  
-action_result.parameter.token | string |  |   0056121890128 
+action_result.parameter.token_serial | string |  `token`  |   0056121890128 
 action_result.data | string |  |  
-action_result.message | string |  |  
 action_result.summary | string |  |  
+action_result.message | string |  |  
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
 
-## action: 'disable token'
-Disables RSA SecureID token
+## action: 'revoke token'
+Revoke RSA SecureID token to block user access
 
-Type: **contain**  
+Type: **generic**  
 Read only: **False**
 
 The token must be assigned to a user.
@@ -92,20 +92,40 @@ The token must be assigned to a user.
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**super_admin_user** |  required  | Super Admin User | string | 
-**super_admin_user_password** |  required  | Password For Super Admin User | string | 
-**token** |  required  | Token serial of RSA SecureID token | string |  `rsa secureid token` 
+**token_serial** |  required  | Token serial of RSA SecureID token | string |  `token` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string |  |  
-action_result.parameter.super_admin_user | string |  |  
-action_result.parameter.super_admin_user_password | string |  |  
-action_result.parameter.token | string |  |   0056121890128 
 action_result.status | string |  |  
+action_result.parameter.token_serial | string |  `token`  |   0056121890128 
 action_result.data | string |  |  
-action_result.message | string |  |  
 action_result.summary | string |  |  
+action_result.message | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
+
+## action: 'list tokens'
+List RSA SecureID tokens
+
+Type: **investigate**  
+Read only: **True**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**list_only_assigned_tokens** |  optional  | List Only RSA SecureID tokens | boolean | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |  
+action_result.parameter.list_only_assigned_tokens | boolean |  |   True  False 
+action_result.data.\*.status | string |  |   Enabled  Disabled 
+action_result.data.\*.token_serial | string |  `token`  |   068283706629 
+action_result.summary | string |  |  
+action_result.summary.total_tokens | numeric |  |   25 
+action_result.message | string |  |  
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1 
