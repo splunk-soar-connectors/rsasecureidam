@@ -6,7 +6,7 @@ Connector Version: 1.0.0
 Product Vendor: RSA  
 Product Name: RSA SecureID Authentication Manager  
 Product Version Supported (regex): ".\*"  
-Minimum Product Version: 6.0.0  
+Minimum Product Version: 6.0.2  
 
 RSA SucureID Authentication Manager app to enable and revoke RSA token
 
@@ -63,18 +63,18 @@ Enables RSA SecureID token to grant user access
 Type: **generic**  
 Read only: **False**
 
-The token must be assigned to a user.
+The token must be assigned to a user to run this action.
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**token_serial** |  required  | Token serial of RSA SecureID token | string |  `token` 
+**token_serial** |  required  | Token serial of assigned RSA SecureID token | string |  `rsa token` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string |  |  
-action_result.parameter.token_serial | string |  `token`  |   0056121890128 
+action_result.parameter.token_serial | string |  `rsa token`  |   0056121890128 
 action_result.data | string |  |  
 action_result.summary | string |  |  
 action_result.message | string |  |  
@@ -87,19 +87,19 @@ Revoke RSA SecureID token to block user access
 Type: **generic**  
 Read only: **False**
 
-The token must be assigned to a user.
+The token must be assigned to a user to run this action.
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**token_serial** |  required  | Token serial of RSA SecureID token | string |  `token` 
+**token_serial** |  required  | Token serial of assigned RSA SecureID token | string |  `rsa token` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string |  |  
 action_result.status | string |  |  
-action_result.parameter.token_serial | string |  `token`  |   0056121890128 
+action_result.parameter.token_serial | string |  `rsa token`  |   0056121890128 
 action_result.data | string |  |  
 action_result.summary | string |  |  
 action_result.message | string |  |  
@@ -123,7 +123,7 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 action_result.status | string |  |  
 action_result.parameter.list_only_assigned_tokens | boolean |  |   True  False 
 action_result.data.\*.status | string |  |   Enabled  Disabled 
-action_result.data.\*.token_serial | string |  `token`  |   068283706629 
+action_result.data.\*.token_serial | string |  `rsa token`  |   068283706629 
 action_result.summary | string |  |  
 action_result.summary.total_tokens | numeric |  |   25 
 action_result.message | string |  |  
