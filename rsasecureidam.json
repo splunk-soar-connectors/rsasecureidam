@@ -16,7 +16,7 @@
     "utctime_updated": "2023-02-03T12:07:55.817082Z",
     "package_name": "phantom_rsasecureidam",
     "main_module": "rsasecureidam_connector.py",
-    "min_phantom_version": "6.0.0",
+    "min_phantom_version": "6.0.2",
     "app_wizard_version": "1.0.0",
     "configuration": {
         "hostname": {
@@ -68,19 +68,19 @@
         {
             "action": "enable token",
             "identifier": "enable_token",
-            "verbose": "The token must be assigned to a user.",
+            "verbose": "The token must be assigned to a user to run this action.",
             "description": "Enables RSA SecureID token to grant user access",
             "type": "generic",
             "read_only": false,
             "undo": "revoke token",
             "parameters": {
                 "token_serial": {
-                    "description": "Token serial of RSA SecureID token",
+                    "description": "Token serial of assigned RSA SecureID token",
                     "data_type": "string",
                     "required": true,
-                    "primary": false,
+                    "primary": true,
                     "contains": [
-                        "token"
+                        "rsa token"
                     ],
                     "order": 0
                 }
@@ -98,7 +98,7 @@
                     "data_path": "action_result.parameter.token_serial",
                     "data_type": "string",
                     "contains": [
-                        "token"
+                        "rsa token"
                     ],
                     "example_values": [
                         "0056121890128"
@@ -145,18 +145,18 @@
             "action": "revoke token",
             "identifier": "revoke_token",
             "description": "Revoke RSA SecureID token to block user access",
-            "verbose": "The token must be assigned to a user.",
+            "verbose": "The token must be assigned to a user to run this action.",
             "type": "generic",
             "read_only": false,
             "undo": "enable token",
             "parameters": {
                 "token_serial": {
-                    "description": "Token serial of RSA SecureID token",
+                    "description": "Token serial of assigned RSA SecureID token",
                     "data_type": "string",
                     "required": true,
-                    "primary": false,
+                    "primary": true,
                     "contains": [
-                        "token"
+                        "rsa token"
                     ],
                     "order": 0
                 }
@@ -184,7 +184,7 @@
                     "data_path": "action_result.parameter.token_serial",
                     "data_type": "string",
                     "contains": [
-                        "token"
+                        "rsa token"
                     ],
                     "example_values": [
                         "0056121890128"
@@ -273,7 +273,7 @@
                     "data_path": "action_result.data.*.token_serial",
                     "data_type": "string",
                     "contains": [
-                        "token"
+                        "rsa token"
                     ],
                     "example_values": [
                         "068283706629"
