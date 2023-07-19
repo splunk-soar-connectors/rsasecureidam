@@ -33,7 +33,7 @@ The below configuration variables are required for this Connector to operate.  T
 VARIABLE | REQUIRED | TYPE | DESCRIPTION
 -------- | -------- | ---- | -----------
 **hostname** |  required  | string | IP/Hostname (e.g. 10.10.10.10)
-**verify_server_cert** |  optional  | boolean | Verify server certificate
+**verify_server_certificate** |  optional  | boolean | Verify server certificate
 **username** |  required  | string | SSH User
 **password** |  required  | password | Password For SSH User
 **super_admin_user** |  optional  | string | Super Admin User
@@ -98,7 +98,6 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string |  |  
-action_result.status | string |  |  
 action_result.parameter.token_serial | string |  `rsa token`  |   0056121890128 
 action_result.data | string |  |  
 action_result.summary | string |  |  
@@ -115,7 +114,7 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**list_only_assigned_tokens** |  optional  | List Only RSA SecureID tokens | boolean | 
+**list_only_assigned_tokens** |  optional  | List RSA SecureID assigned Tokens | boolean | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
