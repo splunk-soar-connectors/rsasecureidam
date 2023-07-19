@@ -25,7 +25,7 @@
             "required": true,
             "order": 0
         },
-        "verify_server_cert": {
+        "verify_server_certificate": {
             "description": "Verify server certificate",
             "data_type": "boolean",
             "order": 1,
@@ -92,7 +92,9 @@
                     "example_value": [
                         "success",
                         "failed"
-                    ]
+                    ],
+                    "column_name": "Status",
+                    "column_order": 1
                 },
                 {
                     "data_path": "action_result.parameter.token_serial",
@@ -168,14 +170,6 @@
                     "example_value": [
                         "success",
                         "failed"
-                    ]
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_value": [
-                        "success",
-                        "failed"
                     ],
                     "column_name": "Status",
                     "column_order": 1
@@ -236,9 +230,10 @@
             "read_only": true,
             "parameters": {
                 "list_only_assigned_tokens": {
-                    "description": "List Only RSA SecureID tokens",
+                    "description": "List RSA SecureID assigned Tokens",
                     "data_type": "boolean",
                     "primary": false,
+                    "default": true,
                     "order": 0
                 }
             },

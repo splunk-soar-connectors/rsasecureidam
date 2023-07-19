@@ -134,9 +134,6 @@ class RSASecureIdAMUtils(object):
         except Exception as e:
             return False, f"Error occured.\r\nDetails:{e}", exit_status
 
-        # finally:
-        #     sftp.
-
         return success, None, exit_status
 
     def parse_token_list(self, tokens):
@@ -207,7 +204,7 @@ class RSASecureIdAMUtils(object):
 
     def list_tokens(self, action_result, param):
         self._connector.debug_print(f"param: {param}")
-        list_only_assigned_tokens = param.get("list_only_assigned_tokens", False)
+        list_only_assigned_tokens = param.get("list_only_assigned_tokens", True)
         data = RSA_LIST_TOKEN_HEADER_LINE
         if list_only_assigned_tokens:
             data += RSA_LIST_TOKENS_QUERY.format(compare_field="1", compare_type="1")
