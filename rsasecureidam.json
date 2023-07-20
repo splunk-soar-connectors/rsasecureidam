@@ -89,7 +89,7 @@
                 {
                     "data_path": "action_result.status",
                     "data_type": "string",
-                    "example_value": [
+                    "example_values": [
                         "success",
                         "failed"
                     ],
@@ -167,7 +167,7 @@
                 {
                     "data_path": "action_result.status",
                     "data_type": "string",
-                    "example_value": [
+                    "example_values": [
                         "success",
                         "failed"
                     ],
@@ -241,7 +241,7 @@
                 {
                     "data_path": "action_result.status",
                     "data_type": "string",
-                    "example_value": [
+                    "example_values": [
                         "success",
                         "failed"
                     ]
