@@ -16,6 +16,9 @@
     "utctime_updated": "2023-02-03T12:07:55.817082Z",
     "package_name": "phantom_rsasecureidam",
     "main_module": "rsasecureidam_connector.py",
+    "latest_tested_versions": [
+        "On Prem, Version 8.6"
+    ],
     "min_phantom_version": "6.0.2",
     "app_wizard_version": "1.0.0",
     "configuration": {
