@@ -73,7 +73,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.status | string |  |  
+action_result.status | string |  |   success  failed 
 action_result.parameter.token_serial | string |  `rsa token`  |   0056121890128 
 action_result.data | string |  |  
 action_result.summary | string |  |  
@@ -97,7 +97,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.status | string |  |  
+action_result.status | string |  |   success  failed 
 action_result.parameter.token_serial | string |  `rsa token`  |   0056121890128 
 action_result.data | string |  |  
 action_result.summary | string |  |  
@@ -119,7 +119,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
-action_result.status | string |  |  
+action_result.status | string |  |   success  failed 
 action_result.parameter.list_only_assigned_tokens | boolean |  |   True  False 
 action_result.data.\*.status | string |  |   Enabled  Disabled 
 action_result.data.\*.token_serial | string |  `rsa token`  |   068283706629 
