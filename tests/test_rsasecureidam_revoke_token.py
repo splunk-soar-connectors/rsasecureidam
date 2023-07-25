@@ -1,4 +1,4 @@
-# File: test_rsasecureidam_disable_token.py
+# File: test_rsasecureidam_revoke_token.py
 #
 # Copyright (c) 2023 Splunk Inc.
 #
@@ -15,27 +15,29 @@
 
 import json
 import unittest
+from unittest.mock import patch
 
-# import rsasecureidam_consts as consts
 from rsasecureidam_connector import RsaSecureidAM
 from tests import rsasecureidam_config
 
-# from unittest.mock import patch
 
-
-class DisableTokenAction(unittest.TestCase):
+@patch("rsasecureidam_utils.revoke_token")
+class RevokeTokenAction(unittest.TestCase):
     def setUp(self):
 
         self._connector = RsaSecureidAM()
         self.test_json = dict(rsasecureidam_config.TEST_JSON)
-        self.test_json.update({"action": "disable token", "identifier": "disable_token"})
+        self.test_json.update({"action": "revoke token", "identifier": "revoke_token"})
 
         return super().setUp()
 
-    def test_disable_token_valid(self, mock_get):
+    def test_revoke_token_valid(self, mock_get):
         """
-        Test the valid case for the disable token action.
+        Test the valid case for the revoke token action.
         """
+
+        mock_get.return_value.ret_val = True
+        mock_get.return_value.response = None
 
         self.test_json["parameters"] = [{
             "token": "001883707613"
@@ -49,10 +51,13 @@ class DisableTokenAction(unittest.TestCase):
         self.assertEqual(ret_val['result_summary']['total_objects_successful'], 1)
         self.assertEqual(ret_val['status'], 'success')
 
-    def test_disable_token_invalid(self):
+    def test_revoke_token_invalid(self, mock_get):
         """
-        Test the invalid case for the disable token action.
+        Test the invalid case for the revoke token action.
         """
+
+        mock_get.return_value.ret_val = False
+        mock_get.return_value.response = "Error occured. Details:a bytes-like object is required, not 'str'"
 
         self.test_json["parameters"] = [{
             "token": "dghghj2"
@@ -63,5 +68,5 @@ class DisableTokenAction(unittest.TestCase):
         print(ret_val)
 
         self.assertEqual(ret_val['result_summary']['total_objects'], 1)
-        self.assertEqual(ret_val['result_summary']['total_objects_successful'], 1)
+        self.assertEqual(ret_val['result_summary']['total_objects_successful'], 0)
         self.assertEqual(ret_val['status'], 'failed')

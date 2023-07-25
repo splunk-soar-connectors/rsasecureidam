@@ -28,11 +28,9 @@
             "required": true,
             "order": 0
         },
-        "verify_server_certificate": {
-            "description": "Verify server certificate",
-            "data_type": "boolean",
-            "order": 1,
-            "default": false
+        "ph": {
+            "data_type": "ph",
+            "order": 1
         },
         "username": {
             "description": "SSH User",

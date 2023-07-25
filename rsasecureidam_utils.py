@@ -21,7 +21,7 @@ import phantom.app as phantom
 import phantom.utils as ph_utils
 from bs4 import UnicodeDammit
 
-from rsasecureidam_consts import *
+import rsasecureidam_consts as consts
 
 
 class RSASecureIdAMUtils(object):
@@ -78,10 +78,10 @@ class RSASecureIdAMUtils(object):
             output_file = "ph_rsa_{}.log".format(filename)
             output_reject_file = "ph_rsa_rej_{}.csv".format(filename)
             path = "/opt/rsa/am/utils/"
-            command = RSA_RUN_COMMAND.format(username=self.super_admin_user, password=self.super_admin_user_password,
+            command = consts.RSA_RUN_COMMAND.format(username=self.super_admin_user, password=self.super_admin_user_password,
                                              input_file=input_file, output_results_file=output_results_file, output_log_file=output_file,
                                              output_reject_file=output_reject_file)
-            command = RSA_COMMAND_PATH + command
+            command = consts.RSA_COMMAND_PATH + command
 
             sftp.chdir(path)
             try:
@@ -191,25 +191,25 @@ class RSASecureIdAMUtils(object):
     def enable_token(self, param):
         self._connector.debug_print(f"param: {param}")
         token = param.get("token_serial")
-        data = RSA_HEADER_LINE
-        data += RSA_ENABLE_TOKEN_QUERY.format(token=token)
+        data = consts.RSA_HEADER_LINE
+        data += consts.RSA_ENABLE_TOKEN_QUERY.format(token=token)
         return self._send_command(data)
 
-    def disable_token(self, param):
+    def revoke_token(self, param):
         self._connector.debug_print(f"param: {param}")
         token = param.get("token_serial")
-        data = RSA_HEADER_LINE
-        data += RSA_REVOKE_TOKEN_QUERY.format(token=token)
+        data = consts.RSA_HEADER_LINE
+        data += consts.RSA_REVOKE_TOKEN_QUERY.format(token=token)
         return self._send_command(data)
 
     def list_tokens(self, action_result, param):
         self._connector.debug_print(f"param: {param}")
         list_only_assigned_tokens = param.get("list_only_assigned_tokens", True)
-        data = RSA_LIST_TOKEN_HEADER_LINE
+        data = consts.RSA_LIST_TOKEN_HEADER_LINE
         if list_only_assigned_tokens:
-            data += RSA_LIST_TOKENS_QUERY.format(compare_field="1", compare_type="1")
+            data += consts.RSA_LIST_TOKENS_QUERY.format(compare_field="1", compare_type="1")
         else:
-            data += RSA_LIST_TOKENS_QUERY.format(compare_field="0", compare_type="0")
+            data += consts.RSA_LIST_TOKENS_QUERY.format(compare_field="0", compare_type="0")
         ret_val, res, _ = self._send_command(data)
         if phantom.is_fail(ret_val):
             return action_result.set_status(phantom.APP_ERROR, f"Error occured while fetching list of tokens. {res}"), None

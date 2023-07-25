@@ -22,7 +22,7 @@ from rsasecureidam_connector import RsaSecureidAM
 from tests import rsasecureidam_config
 
 
-@patch("rsasecureidam_utils.start_connection")
+@patch("rsasecureidam_utils._start_connection")
 class TestConnectivityAction(unittest.TestCase):
     """Class to test the Test Connectivity action."""
 
@@ -44,16 +44,18 @@ class TestConnectivityAction(unittest.TestCase):
 
         ret_val = self.connector._handle_action(json.dumps(self.test_json), None)
         ret_val = json.loads(ret_val)
-        print(ret_val)
 
         self.assertEqual(ret_val['result_summary']['total_objects'], 1)
         self.assertEqual(ret_val['result_summary']['total_objects_successful'], 1)
         self.assertEqual(ret_val['status'], 'success')
 
-    def test_connectivity_invalid_base_url_fail(self):
+    def test_connectivity_invalid_base_url_fail(self, mock_get):
         """
         Test the invalid case for the test connectivity action.
         """
+
+        mock_get.return_value.ret_val = False
+        mock_get.return_value.response = "SSH connection attempt failed. Please enter valid values for asset parameters"
 
         ret_val = self.connector._handle_action(json.dumps(self.test_json), None)
         ret_val = json.loads(ret_val)

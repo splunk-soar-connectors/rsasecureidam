@@ -1,4 +1,4 @@
-# File: test_rsasecureidam_enable_token.py
+# File: test_rsasecureidam_list_tokens.py
 #
 # Copyright (c) 2023 Splunk Inc.
 #
@@ -17,30 +17,33 @@ import json
 import unittest
 from unittest.mock import patch
 
+# import rsasecureidam_consts as consts
 from rsasecureidam_connector import RsaSecureidAM
 from tests import rsasecureidam_config
 
+# from unittest.mock import patch
 
-@patch("rsasecureidam_utils.enable_token")
-class RevokeTokenAction(unittest.TestCase):
+
+@patch("rsasecureidam_utils.list_tokens")
+class ListTokensAction(unittest.TestCase):
     def setUp(self):
 
         self._connector = RsaSecureidAM()
         self.test_json = dict(rsasecureidam_config.TEST_JSON)
-        self.test_json.update({"action": "enable token", "identifier": "enable_token"})
+        self.test_json.update({"action": "list tokens", "identifier": "list_tokens"})
 
         return super().setUp()
 
-    def test_enable_token_valid(self, mock_get):
+    def test_list_tokens_assigned_tokens_valid(self, mock_get):
         """
-        Test the valid case for the enable token action.
+        Test the valid case for the list token action.
         """
 
         mock_get.return_value.ret_val = True
-        mock_get.return_value.response = None
+        mock_get.return_value.response = ["list_of_tokens"]
 
         self.test_json["parameters"] = [{
-            "token": "001883707613"
+            "list_only_assigned_tokens": True
         }]
 
         ret_val = self._connector._handle_action(json.dumps(self.test_json), None)
@@ -50,16 +53,16 @@ class RevokeTokenAction(unittest.TestCase):
         self.assertEqual(ret_val['result_summary']['total_objects_successful'], 1)
         self.assertEqual(ret_val['status'], 'success')
 
-    def test_enable_token_invalid(self, mock_get):
+    def test_list_tokens_all_tokens_valid(self, mock_get):
         """
-        Test the invalid case for the enable token action.
+        Test the valid case for the list token action.
         """
 
-        mock_get.return_value.ret_val = False
-        mock_get.return_value.response = "Error occured. Details:a bytes-like object is required, not 'str'"
+        mock_get.return_value.ret_val = True
+        mock_get.return_value.response = ["list_of_tokens"]
 
         self.test_json["parameters"] = [{
-            "token": "dghghj2"
+            "list_only_assigned_tokens": False
         }]
 
         ret_val = self._connector._handle_action(json.dumps(self.test_json), None)
@@ -67,4 +70,23 @@ class RevokeTokenAction(unittest.TestCase):
 
         self.assertEqual(ret_val['result_summary']['total_objects'], 1)
         self.assertEqual(ret_val['result_summary']['total_objects_successful'], 1)
+        self.assertEqual(ret_val['status'], 'success')
+
+    def test_list_tokens_invalid(self, mock_get):
+        """
+        Test the valid case for the list token action.
+        """
+
+        mock_get.return_value.ret_val = False
+        mock_get.return_value.response = None
+
+        self.test_json["parameters"] = [{
+            "list_only_assigned_tokens": False
+        }]
+
+        ret_val = self._connector._handle_action(json.dumps(self.test_json), None)
+        ret_val = json.loads(ret_val)
+
+        self.assertEqual(ret_val['result_summary']['total_objects'], 1)
+        self.assertEqual(ret_val['result_summary']['total_objects_successful'], 0)
         self.assertEqual(ret_val['status'], 'failed')

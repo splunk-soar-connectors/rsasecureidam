@@ -1,4 +1,4 @@
-# File: rsasecureidam_disable_token.py
+# File: rsasecureidam_revoke_token.py
 #
 # Copyright (c) 2023 Splunk Inc.
 #
@@ -25,7 +25,7 @@ class RevokeToken(BaseAction):
         self._connector.save_progress("In action handler for: {0}".format(self._connector.get_action_identifier()))
         # self.token = self._param.get('token')
 
-        ret_val, response, _ = self.utils.disable_token(self._param)
+        ret_val, response, _ = self.utils.revoke_token(self._param)
 
         if phantom.is_fail(ret_val):
             self._action_result.set_status(phantom.APP_ERROR, response)
