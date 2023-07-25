@@ -33,7 +33,6 @@ The below configuration variables are required for this Connector to operate.  T
 VARIABLE | REQUIRED | TYPE | DESCRIPTION
 -------- | -------- | ---- | -----------
 **hostname** |  required  | string | IP/Hostname (e.g. 10.10.10.10)
-**verify_server_certificate** |  optional  | boolean | Verify server certificate
 **username** |  required  | string | SSH User
 **password** |  required  | password | Password For SSH User
 **super_admin_user** |  optional  | string | Super Admin User
