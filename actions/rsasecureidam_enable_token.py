@@ -16,19 +16,20 @@
 import phantom.app as phantom
 
 from actions import BaseAction
-from rsasecureidam_consts import RSA_TOKEN_ENABLE_MESSAGE
+from rsasecureidam_consts import RSA_ENABLE_TOKEN_QUERY, RSA_HEADER_LINE, RSA_TOKEN_ENABLE_MESSAGE
 
 
 class EnableToken(BaseAction):
 
     def execute(self):
         self._connector.save_progress("In action handler for: {0}".format(self._connector.get_action_identifier()))
-        # self.token = self._param.get('token')
 
-        ret_val, response, _ = self.utils.enable_token(self._param)
+        token = self._param.get("token_serial")
+        data = RSA_HEADER_LINE
+        data += RSA_ENABLE_TOKEN_QUERY.format(token=token)
+        ret_val, response = self.utils._send_command(self._action_result, data)
 
         if phantom.is_fail(ret_val):
-            self._action_result.set_status(phantom.APP_ERROR, response)
             return self._action_result.get_status()
 
         return self._action_result.set_status(phantom.APP_SUCCESS, RSA_TOKEN_ENABLE_MESSAGE)

@@ -1,2 +1,2 @@
 **Unreleased**
-* Initial release with Python3 support
+* Initial release with 'list tokens', 'enable token' and 'revoke token' actions

@@ -22,7 +22,7 @@ class BaseAction:
     """Base Action class to generate the action objects."""
     def __init__(self, connector, param):
         """Prepare constructor for actions.
-        :param connector: Vision connector object
+        :param connector: Connector object
         :param param: Parameter dictionary
         """
         self._connector = connector

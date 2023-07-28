@@ -16,6 +16,7 @@
 import phantom.app as phantom
 
 from actions import BaseAction
+from rsasecureidam_consts import RSA_LIST_TOKEN_HEADER_LINE, RSA_LIST_TOKENS_QUERY
 
 
 class ListTokens(BaseAction):
@@ -23,15 +24,21 @@ class ListTokens(BaseAction):
     def execute(self):
         self._connector.save_progress("In action handler for: {0}".format(self._connector.get_action_identifier()))
 
-        ret_val, tokens = self.utils.list_tokens(self._action_result, self._param)
+        list_only_assigned_tokens = self._param.get("list_only_assigned_tokens", True)
+        data = RSA_LIST_TOKEN_HEADER_LINE
+        if list_only_assigned_tokens:
+            data += RSA_LIST_TOKENS_QUERY.format(compare_field="1", compare_type="1")
+        else:
+            data += RSA_LIST_TOKENS_QUERY.format(compare_field="0", compare_type="0")
+        ret_val, tokens = self.utils._send_command(self._action_result, data)
 
         if phantom.is_fail(ret_val):
-            return self._action_result.get_status()
+            self._connector.save_progress("Error occured while fetching list of tokens.")
+            return self._action_result.get_status(phantom.APP_ERROR)
 
-        # self._action_result.add_data(tokens)
         for token in tokens:
             self._action_result.add_data(token)
 
         self._action_result.update_summary({"total_tokens": len(tokens)})
 
-        return self._action_result.set_status(phantom.APP_SUCCESS, f"Total tokens: {len(tokens)}")
+        return self._action_result.set_status(phantom.APP_SUCCESS)

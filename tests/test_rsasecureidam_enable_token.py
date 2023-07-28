@@ -21,7 +21,7 @@ from rsasecureidam_connector import RsaSecureidAM
 from tests import rsasecureidam_config
 
 
-@patch("rsasecureidam_utils.enable_token")
+@patch("rsasecureidam_utils._send_command")
 class RevokeTokenAction(unittest.TestCase):
     def setUp(self):
 
@@ -37,7 +37,7 @@ class RevokeTokenAction(unittest.TestCase):
         """
 
         mock_get.return_value.ret_val = True
-        mock_get.return_value.response = None
+        mock_get.return_value.response = []
 
         self.test_json["parameters"] = [{
             "token": "001883707613"
@@ -56,7 +56,7 @@ class RevokeTokenAction(unittest.TestCase):
         """
 
         mock_get.return_value.ret_val = False
-        mock_get.return_value.response = "Error occured. Details:a bytes-like object is required, not 'str'"
+        mock_get.return_value.response = []
 
         self.test_json["parameters"] = [{
             "token": "dghghj2"

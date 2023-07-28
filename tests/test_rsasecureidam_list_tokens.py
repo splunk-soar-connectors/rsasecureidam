@@ -24,7 +24,7 @@ from tests import rsasecureidam_config
 # from unittest.mock import patch
 
 
-@patch("rsasecureidam_utils.list_tokens")
+@patch("rsasecureidam_utils._send_command")
 class ListTokensAction(unittest.TestCase):
     def setUp(self):
 

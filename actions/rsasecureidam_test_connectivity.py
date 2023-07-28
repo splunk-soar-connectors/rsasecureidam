@@ -23,15 +23,13 @@ from rsasecureidam_consts import RSA_TEST_CONNECTIVITY_FAIL, RSA_TEST_CONNECTIVI
 class TestConnectivity(BaseAction):
 
     def execute(self):
-        # self.config = self._connector.get_config(self._action_result)
-        # self._connector.save_progress("In action handler for: {0}".format(self._connector.get_action_identifier()))
 
-        ret_val, response, error_message = self.utils._start_connection()
+        ret_val, response = self.utils._start_connection()
 
         if phantom.is_fail(ret_val):
-            self._action_result.set_status(phantom.APP_ERROR, response)
-            self._connector.save_progress(RSA_TEST_CONNECTIVITY_FAIL)
-            return self._action_result.get_status(), error_message
+            self._connector.save_progress(response)
+            return self._action_result.set_status(phantom.APP_ERROR, RSA_TEST_CONNECTIVITY_FAIL)
 
+        self._connector.save_progress(response)
         self._connector.save_progress(RSA_TEST_CONNECTIVITY_SUCCESS)
-        return self._action_result.set_status(phantom.APP_SUCCESS), response
+        return self._action_result.set_status(phantom.APP_SUCCESS)

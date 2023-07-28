@@ -21,7 +21,7 @@ from rsasecureidam_connector import RsaSecureidAM
 from tests import rsasecureidam_config
 
 
-@patch("rsasecureidam_utils.revoke_token")
+@patch("rsasecureidam_utils._send_command")
 class RevokeTokenAction(unittest.TestCase):
     def setUp(self):
 

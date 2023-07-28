@@ -41,32 +41,32 @@ class RSASecureIdAMUtils(object):
         self._ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
         if not ph_utils.is_ip(self.hostname):
-            return False, "Invalid Please enter valid Ip hostname", None
+            return False, "Please enter valid IP hostname"
 
         try:
             self._ssh_client.connect(hostname=self.hostname, username=self._username,
                     password=self._password, allow_agent=False, look_for_keys=True,
                     timeout=30)
         except Exception as e:
-            return False, "SSH connection attempt failed. Please enter valid values for asset parameters", e
+            return False, f"SSH connection attempt failed. Please enter valid values for asset parameters. {str(e)}"
 
-        return True, "SSH connection successful", None
+        return True, "SSH connection successful"
 
-    def _send_command(self, input_data, timeout=0):
+    def _send_command(self, action_result, input_data, timeout=0):
         """
            Args:
                command: command to send
                timeout: how long to wait before terminating program
         """
         # attempt to establish connection first
-        status, msg, uname_str = self._start_connection()
+        status, msg = self._start_connection()
         if not status:
-            return False, msg, uname_str
+            return action_result.set_status(phantom.APP_ERROR, msg), []
 
         try:
 
-            self.super_admin_user = self._connector.config.get("super_admin_user")
-            self.super_admin_user_password = self._connector.config.get("super_admin_user_password")
+            super_admin_user = self._connector.config.get("super_admin_user")
+            super_admin_user_password = self._connector.config.get("super_admin_user_password")
 
             sftp = self._ssh_client.open_sftp()
 
@@ -78,7 +78,9 @@ class RSASecureIdAMUtils(object):
             output_file = "ph_rsa_{}.log".format(filename)
             output_reject_file = "ph_rsa_rej_{}.csv".format(filename)
             path = "/opt/rsa/am/utils/"
-            command = consts.RSA_RUN_COMMAND.format(username=self.super_admin_user, password=self.super_admin_user_password,
+            if not (super_admin_user and super_admin_user_password):
+                return action_result.set_status(phantom.APP_ERROR, "Please enter valid Super Admin Username and Password."), []
+            command = consts.RSA_RUN_COMMAND.format(username=super_admin_user, password=super_admin_user_password,
                                              input_file=input_file, output_results_file=output_results_file, output_log_file=output_file,
                                              output_reject_file=output_reject_file)
             command = consts.RSA_COMMAND_PATH + command
@@ -89,7 +91,7 @@ class RSASecureIdAMUtils(object):
                 f.write(input_data)
                 f.close()
             except Exception as e:
-                return False, "Error in creating input file. {}".format(e), -1
+                return action_result.set_status(phantom.APP_ERROR, f"Error in creating input file. {str(e)}"), []
 
             trans = self._ssh_client.get_transport()
             self._shell_channel = trans.open_session()
@@ -103,8 +105,10 @@ class RSASecureIdAMUtils(object):
                 if data.find("Error 2004:") != -1:
                     data = str(data).split(":")
                     data = data[1]
-                    self._connector.debug_print("Authentication Error.", data)
-                    return False, "Authentication failed. Please enter valid Super Admin Username and Password", exit_status
+                    self._connector.save_progress("Authentication Error.", data)
+                    sftp.remove(input_file)
+                    return action_result.set_status(phantom.APP_ERROR,
+                                                    "Authentication failed. Please enter valid Super Admin Username and Password"), []
                 else:
                     log_file = sftp.file(output_file, "r")
                     logs = str(log_file.read())
@@ -114,6 +118,7 @@ class RSASecureIdAMUtils(object):
                         self._connector.debug_print(f"Logs for the action: {data}")
                         data = str(data.splitlines()[1].split(":"))[1]
                         rej_data_file.close()
+                    log_file.close()
 
             self._connector.debug_print("Deleting output files")
             sftp.remove(input_file)
@@ -121,30 +126,30 @@ class RSASecureIdAMUtils(object):
             sftp.remove(output_reject_file)
             output += data
 
+            if exit_status or (not success):
+                return action_result.set_status(phantom.APP_ERROR, f"Error occured.\r\nOutput: {output}\r\nExit Status: {exit_status}"), []
+
             if self._connector.get_action_identifier() == "list_tokens":
                 results_file = sftp.file(output_results_file, "r")
                 tokens_data = results_file.read()
                 token_list = self.parse_token_list(tokens_data)
                 self._connector.debug_print(f"tokens::{token_list}")
+                results_file.close()
                 sftp.remove(output_results_file)
-                return success, token_list, exit_status
+                return action_result.set_status(phantom.APP_SUCCESS), token_list
 
-            if exit_status or (not success):
-                return False, f"Error occured.\r\nOutput: {output}\r\nExit Status: {exit_status}", exit_status
         except Exception as e:
-            return False, f"Error occured.\r\nDetails:{e}", exit_status
+            return action_result.set_status(phantom.APP_ERROR, f"Error occured.\r\nDetails:{e}"), []
 
-        return success, None, exit_status
+        return action_result.set_status(phantom.APP_SUCCESS), []
 
     def parse_token_list(self, tokens):
         token_list = list()
-        self._connector.debug_print("parse token list****")
         for token_data in tokens.splitlines():
             data = {}
             token = token_data.decode("utf-8").split(",")
             data["token_serial"] = token[0]
             data["status"] = "Enabled" if (token[8] == "true") else "Disabled"
-            self._connector.debug_print(f"token****: {token}")
             token_list.append(data)
 
         return token_list
@@ -170,8 +175,6 @@ class RSASecureIdAMUtils(object):
                         output += recv_output
                     else:
                         break
-
-                    # This is pretty messy but it's just the way it is I guess
                     if (sendpw and self._password):
                         try:
                             self._shell_channel.send(f"{self._password}\n")
@@ -187,31 +190,3 @@ class RSASecureIdAMUtils(object):
             return False, "Error", str(e)
 
         return True, output, self._shell_channel.recv_exit_status()
-
-    def enable_token(self, param):
-        self._connector.debug_print(f"param: {param}")
-        token = param.get("token_serial")
-        data = consts.RSA_HEADER_LINE
-        data += consts.RSA_ENABLE_TOKEN_QUERY.format(token=token)
-        return self._send_command(data)
-
-    def revoke_token(self, param):
-        self._connector.debug_print(f"param: {param}")
-        token = param.get("token_serial")
-        data = consts.RSA_HEADER_LINE
-        data += consts.RSA_REVOKE_TOKEN_QUERY.format(token=token)
-        return self._send_command(data)
-
-    def list_tokens(self, action_result, param):
-        self._connector.debug_print(f"param: {param}")
-        list_only_assigned_tokens = param.get("list_only_assigned_tokens", True)
-        data = consts.RSA_LIST_TOKEN_HEADER_LINE
-        if list_only_assigned_tokens:
-            data += consts.RSA_LIST_TOKENS_QUERY.format(compare_field="1", compare_type="1")
-        else:
-            data += consts.RSA_LIST_TOKENS_QUERY.format(compare_field="0", compare_type="0")
-        ret_val, res, _ = self._send_command(data)
-        if phantom.is_fail(ret_val):
-            return action_result.set_status(phantom.APP_ERROR, f"Error occured while fetching list of tokens. {res}"), None
-
-        return action_result.set_status(phantom.APP_SUCCESS), res
