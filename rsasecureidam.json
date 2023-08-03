@@ -226,7 +226,6 @@
             "action": "list tokens",
             "identifier": "list_tokens",
             "description": "List RSA SecureID tokens",
-            "verbose": "",
             "type": "investigate",
             "read_only": true,
             "parameters": {
