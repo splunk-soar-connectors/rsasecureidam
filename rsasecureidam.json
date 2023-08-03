@@ -232,7 +232,7 @@
                 "list_only_assigned_tokens": {
                     "description": "List RSA SecureID assigned Tokens",
                     "data_type": "boolean",
-                    "primary": false,
+                    "primary": true,
                     "default": true,
                     "order": 0
                 }
