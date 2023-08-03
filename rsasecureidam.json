@@ -340,7 +340,7 @@
             },
             {
                 "module": "paramiko",
-                "input_file": "wheels/py3/paramiko-3.2.0-py3-none-any.whl"
+                "input_file": "wheels/shared/paramiko-2.9.2-py2.py3-none-any.whl"
             },
             {
                 "module": "pycparser",
@@ -372,11 +372,11 @@
             },
             {
                 "module": "cryptography",
-                "input_file": "wheels/py3/cryptography-41.0.2-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+                "input_file": "wheels/py3/cryptography-41.0.3-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
             },
             {
                 "module": "paramiko",
-                "input_file": "wheels/py3/paramiko-3.2.0-py3-none-any.whl"
+                "input_file": "wheels/shared/paramiko-2.9.2-py2.py3-none-any.whl"
             },
             {
                 "module": "pycparser",
