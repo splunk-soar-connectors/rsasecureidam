@@ -24,7 +24,7 @@ class EnableToken(BaseAction):
     def execute(self):
         self._connector.save_progress("In action handler for: {0}".format(self._connector.get_action_identifier()))
 
-        token = self._param.get("token_serial")
+        token = self._param["token_serial"]
         data = RSA_HEADER_LINE
         data += RSA_ENABLE_TOKEN_QUERY.format(token=token)
         ret_val, response = self.utils._send_command(self._action_result, data)
