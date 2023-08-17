@@ -2,7 +2,7 @@
 # RSA SecureID Authentication Manager
 
 Publisher: Splunk  
-Connector Version: 1.0.0  
+Connector Version: 1.0.1  
 Product Vendor: RSA  
 Product Name: RSA SecureID Authentication Manager  
 Product Version Supported (regex): ".\*"  
