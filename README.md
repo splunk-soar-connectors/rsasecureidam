@@ -25,6 +25,7 @@ RSA SucureID Authentication Manager app to enable and revoke RSA token
 [comment]: # "and limitations under the License."
 [comment]: # ""
 
+**NOTE:** **super\_admin\_user** and **super\_admin\_password** asset configuration parameters are optional for test\_connectivity action, but required for all the other app actions.
 
 
 ### Configuration Variables
