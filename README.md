@@ -27,6 +27,9 @@ RSA SucureID Authentication Manager app to enable and revoke RSA token
 
 **NOTE:** **super\_admin\_user** and **super\_admin\_password** asset configuration parameters are optional for test\_connectivity action, but required for all the other app actions.
 
+## Port Information
+
+The app uses port 22 for communicating with the RSA SecureID Authentication Manager server.
 
 ### Configuration Variables
 The below configuration variables are required for this Connector to operate.  These variables are specified when configuring a RSA SecureID Authentication Manager asset in SOAR.
