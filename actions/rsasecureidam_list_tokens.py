@@ -34,7 +34,7 @@ class ListTokens(BaseAction):
 
         if phantom.is_fail(ret_val):
             self._connector.save_progress("Error occured while fetching list of tokens.")
-            return self._action_result.get_status(phantom.APP_ERROR)
+            return self._action_result.get_status()
 
         for token in tokens:
             self._action_result.add_data(token)
