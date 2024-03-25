@@ -11,8 +11,8 @@
     "fips_compliant": true,
     "product_version_regex": ".*",
     "publisher": "Splunk",
-    "license": "Copyright (c) 2023 Splunk Inc.",
-    "app_version": "1.0.1",
+    "license": "Copyright (c) 2023-2024 Splunk Inc.",
+    "app_version": "1.0.2",
     "utctime_updated": "2023-02-03T12:07:55.817082Z",
     "package_name": "phantom_rsasecureidam",
     "main_module": "rsasecureidam_connector.py",
@@ -334,10 +334,6 @@
                 "input_file": "wheels/py36/cffi-1.15.1-cp36-cp36m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
             },
             {
-                "module": "cryptography",
-                "input_file": "wheels/py36/cryptography-40.0.2-cp36-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-            },
-            {
                 "module": "paramiko",
                 "input_file": "wheels/shared/paramiko-2.9.2-py2.py3-none-any.whl"
             },
@@ -359,7 +355,7 @@
             },
             {
                 "module": "bcrypt",
-                "input_file": "wheels/py36/bcrypt-4.0.1-cp36-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+                "input_file": "wheels/py39/bcrypt-4.1.2-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
             },
             {
                 "module": "beautifulsoup4",
@@ -367,11 +363,7 @@
             },
             {
                 "module": "cffi",
-                "input_file": "wheels/py39/cffi-1.15.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-            },
-            {
-                "module": "cryptography",
-                "input_file": "wheels/py3/cryptography-41.0.3-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+                "input_file": "wheels/py39/cffi-1.16.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
             },
             {
                 "module": "paramiko",
@@ -383,7 +375,7 @@
             },
             {
                 "module": "soupsieve",
-                "input_file": "wheels/py3/soupsieve-2.4.1-py3-none-any.whl"
+                "input_file": "wheels/py3/soupsieve-2.5-py3-none-any.whl"
             }
         ]
     }
