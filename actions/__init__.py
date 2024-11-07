@@ -20,6 +20,7 @@ from rsasecureidam_utils import RSASecureIdAMUtils
 
 class BaseAction:
     """Base Action class to generate the action objects."""
+
     def __init__(self, connector, param):
         """Prepare constructor for actions.
         :param connector: Connector object
