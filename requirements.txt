@@ -1,2 +1,3 @@
+bcrypt==4.1.2
 beautifulsoup4==4.12.2
 git+https://github.com/phantomcyber/paramiko.git@3.5.0-fips #paramiko=3.5.0

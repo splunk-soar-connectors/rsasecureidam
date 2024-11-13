@@ -323,7 +323,7 @@
             },
             {
                 "module": "bcrypt",
-                "input_file": "wheels/py39/bcrypt-4.2.0-cp39-abi3-manylinux_2_28_x86_64.whl"
+                "input_file": "wheels/py39/bcrypt-4.1.2-cp39-abi3-manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "cffi",
@@ -340,34 +340,6 @@
             {
                 "module": "pycparser",
                 "input_file": "wheels/py3/pycparser-2.22-py3-none-any.whl"
-            }
-        ]
-    },
-    "pip_dependencies": {
-        "wheel": [
-            {
-                "module": "PyNaCl",
-                "input_file": "wheels/py36/PyNaCl-1.5.0-cp36-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl"
-            },
-            {
-                "module": "bcrypt",
-                "input_file": "wheels/py36/bcrypt-4.0.1-cp36-abi3-manylinux_2_28_x86_64.whl"
-            },
-            {
-                "module": "cffi",
-                "input_file": "wheels/py36/cffi-1.15.1-cp36-cp36m-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.manylinux_2_28_x86_64.whl"
-            },
-            {
-                "module": "cryptography",
-                "input_file": "wheels/py36/cryptography-40.0.2-cp36-abi3-manylinux_2_28_x86_64.whl"
-            },
-            {
-                "module": "paramiko",
-                "input_file": "wheels/py3/paramiko-3.5.0-py3-none-any.whl"
-            },
-            {
-                "module": "pycparser",
-                "input_file": "wheels/shared/pycparser-2.21-py2.py3-none-any.whl"
             }
         ]
     }
