@@ -19,7 +19,7 @@
     "latest_tested_versions": [
         "On Prem, Version 8.6"
     ],
-    "min_phantom_version": "6.2.2",
+    "min_phantom_version": "6.3.0",
     "app_wizard_version": "1.0.0",
     "configuration": {
         "hostname": {
