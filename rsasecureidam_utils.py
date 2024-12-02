@@ -44,9 +44,9 @@ class RSASecureIdAMUtils(object):
             return False, "Please enter valid IP hostname"
 
         try:
-            self._ssh_client.connect(hostname=self.hostname, username=self._username,
-                    password=self._password, allow_agent=False, look_for_keys=True,
-                    timeout=30)
+            self._ssh_client.connect(
+                hostname=self.hostname, username=self._username, password=self._password, allow_agent=False, look_for_keys=True, timeout=30
+            )
         except Exception as e:
             return False, f"SSH connection attempt failed. Please enter valid values for asset parameters. {str(e)}"
 
@@ -54,9 +54,9 @@ class RSASecureIdAMUtils(object):
 
     def _send_command(self, action_result, input_data, timeout=0):
         """
-           Args:
-               command: command to send
-               timeout: how long to wait before terminating program
+        Args:
+            command: command to send
+            timeout: how long to wait before terminating program
         """
         # attempt to establish connection first
         status, msg = self._start_connection()
@@ -80,14 +80,19 @@ class RSASecureIdAMUtils(object):
             path = "/opt/rsa/am/utils/"
             if not (super_admin_user and super_admin_user_password):
                 return action_result.set_status(phantom.APP_ERROR, "Please enter valid Super Admin Username and Password."), []
-            command = consts.RSA_RUN_COMMAND.format(username=super_admin_user, password=super_admin_user_password,
-                                             input_file=input_file, output_results_file=output_results_file, output_log_file=output_file,
-                                             output_reject_file=output_reject_file)
+            command = consts.RSA_RUN_COMMAND.format(
+                username=super_admin_user,
+                password=super_admin_user_password,
+                input_file=input_file,
+                output_results_file=output_results_file,
+                output_log_file=output_file,
+                output_reject_file=output_reject_file,
+            )
             command = consts.RSA_COMMAND_PATH + command
 
             sftp.chdir(path)
             try:
-                f = sftp.file(input_file, 'w', -1)
+                f = sftp.file(input_file, "w", -1)
                 f.write(input_data)
                 f.close()
             except Exception as e:
@@ -107,8 +112,12 @@ class RSASecureIdAMUtils(object):
                     data = data[1]
                     self._connector.save_progress("Authentication Error.", data)
                     sftp.remove(input_file)
-                    return action_result.set_status(phantom.APP_ERROR,
-                                                    "Authentication failed. Please enter valid Super Admin Username and Password"), []
+                    return (
+                        action_result.set_status(
+                            phantom.APP_ERROR, "Authentication failed. Please enter valid Super Admin Username and Password"
+                        ),
+                        [],
+                    )
                 else:
                     log_file = sftp.file(output_file, "r")
                     logs = str(log_file.read())
@@ -156,8 +165,8 @@ class RSASecureIdAMUtils(object):
 
     def _get_output(self, timeout):
         """
-            returns:
-                success, data, exit_status
+        returns:
+            success, data, exit_status
         """
         sendpw = True
         self._shell_channel.settimeout(2)
@@ -175,15 +184,15 @@ class RSASecureIdAMUtils(object):
                         output += recv_output
                     else:
                         break
-                    if (sendpw and self._password):
+                    if sendpw and self._password:
                         try:
                             self._shell_channel.send(f"{self._password}\n")
                         except socket.error:
                             pass
                         sendpw = False
-                elif (timeout and ctime - stime >= timeout):
+                elif timeout and ctime - stime >= timeout:
                     return False, "Error: Timeout", None
-                elif (self._shell_channel.exit_status_ready() and not self._shell_channel.recv_ready()):
+                elif self._shell_channel.exit_status_ready() and not self._shell_channel.recv_ready():
                     break
                 time.sleep(1)
         except Exception as e:

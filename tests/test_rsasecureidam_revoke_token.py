@@ -39,17 +39,15 @@ class RevokeTokenAction(unittest.TestCase):
         mock_get.return_value.ret_val = True
         mock_get.return_value.response = None
 
-        self.test_json["parameters"] = [{
-            "token": "001883707613"
-        }]
+        self.test_json["parameters"] = [{"token": "001883707613"}]
 
         ret_val = self._connector._handle_action(json.dumps(self.test_json), None)
         ret_val = json.loads(ret_val)
         print(ret_val)
 
-        self.assertEqual(ret_val['result_summary']['total_objects'], 1)
-        self.assertEqual(ret_val['result_summary']['total_objects_successful'], 1)
-        self.assertEqual(ret_val['status'], 'success')
+        self.assertEqual(ret_val["result_summary"]["total_objects"], 1)
+        self.assertEqual(ret_val["result_summary"]["total_objects_successful"], 1)
+        self.assertEqual(ret_val["status"], "success")
 
     def test_revoke_token_invalid(self, mock_get):
         """
@@ -59,14 +57,12 @@ class RevokeTokenAction(unittest.TestCase):
         mock_get.return_value.ret_val = False
         mock_get.return_value.response = "Error occured. Details:a bytes-like object is required, not 'str'"
 
-        self.test_json["parameters"] = [{
-            "token": "dghghj2"
-        }]
+        self.test_json["parameters"] = [{"token": "dghghj2"}]
 
         ret_val = self._connector._handle_action(json.dumps(self.test_json), None)
         ret_val = json.loads(ret_val)
         print(ret_val)
 
-        self.assertEqual(ret_val['result_summary']['total_objects'], 1)
-        self.assertEqual(ret_val['result_summary']['total_objects_successful'], 0)
-        self.assertEqual(ret_val['status'], 'failed')
+        self.assertEqual(ret_val["result_summary"]["total_objects"], 1)
+        self.assertEqual(ret_val["result_summary"]["total_objects_successful"], 0)
+        self.assertEqual(ret_val["status"], "failed")

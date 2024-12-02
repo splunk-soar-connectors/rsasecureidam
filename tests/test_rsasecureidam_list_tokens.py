@@ -42,16 +42,14 @@ class ListTokensAction(unittest.TestCase):
         mock_get.return_value.ret_val = True
         mock_get.return_value.response = ["list_of_tokens"]
 
-        self.test_json["parameters"] = [{
-            "list_only_assigned_tokens": True
-        }]
+        self.test_json["parameters"] = [{"list_only_assigned_tokens": True}]
 
         ret_val = self._connector._handle_action(json.dumps(self.test_json), None)
         ret_val = json.loads(ret_val)
 
-        self.assertEqual(ret_val['result_summary']['total_objects'], 1)
-        self.assertEqual(ret_val['result_summary']['total_objects_successful'], 1)
-        self.assertEqual(ret_val['status'], 'success')
+        self.assertEqual(ret_val["result_summary"]["total_objects"], 1)
+        self.assertEqual(ret_val["result_summary"]["total_objects_successful"], 1)
+        self.assertEqual(ret_val["status"], "success")
 
     def test_list_tokens_all_tokens_valid(self, mock_get):
         """
@@ -61,16 +59,14 @@ class ListTokensAction(unittest.TestCase):
         mock_get.return_value.ret_val = True
         mock_get.return_value.response = ["list_of_tokens"]
 
-        self.test_json["parameters"] = [{
-            "list_only_assigned_tokens": False
-        }]
+        self.test_json["parameters"] = [{"list_only_assigned_tokens": False}]
 
         ret_val = self._connector._handle_action(json.dumps(self.test_json), None)
         ret_val = json.loads(ret_val)
 
-        self.assertEqual(ret_val['result_summary']['total_objects'], 1)
-        self.assertEqual(ret_val['result_summary']['total_objects_successful'], 1)
-        self.assertEqual(ret_val['status'], 'success')
+        self.assertEqual(ret_val["result_summary"]["total_objects"], 1)
+        self.assertEqual(ret_val["result_summary"]["total_objects_successful"], 1)
+        self.assertEqual(ret_val["status"], "success")
 
     def test_list_tokens_invalid(self, mock_get):
         """
@@ -80,13 +76,11 @@ class ListTokensAction(unittest.TestCase):
         mock_get.return_value.ret_val = False
         mock_get.return_value.response = None
 
-        self.test_json["parameters"] = [{
-            "list_only_assigned_tokens": False
-        }]
+        self.test_json["parameters"] = [{"list_only_assigned_tokens": False}]
 
         ret_val = self._connector._handle_action(json.dumps(self.test_json), None)
         ret_val = json.loads(ret_val)
 
-        self.assertEqual(ret_val['result_summary']['total_objects'], 1)
-        self.assertEqual(ret_val['result_summary']['total_objects_successful'], 0)
-        self.assertEqual(ret_val['status'], 'failed')
+        self.assertEqual(ret_val["result_summary"]["total_objects"], 1)
+        self.assertEqual(ret_val["result_summary"]["total_objects_successful"], 0)
+        self.assertEqual(ret_val["status"], "failed")
