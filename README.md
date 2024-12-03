@@ -2,11 +2,11 @@
 # RSA SecureID Authentication Manager
 
 Publisher: Splunk  
-Connector Version: 1.0.2  
+Connector Version: 1.0.3  
 Product Vendor: RSA  
 Product Name: RSA SecureID Authentication Manager  
 Product Version Supported (regex): ".\*"  
-Minimum Product Version: 6.0.2  
+Minimum Product Version: 6.3.0  
 
 RSA SucureID Authentication Manager app to enable and revoke RSA token
 

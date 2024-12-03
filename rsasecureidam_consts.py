@@ -14,8 +14,10 @@
 # and limitations under the License.
 
 
-RSA_RUN_COMMAND = "./rsautil AMBulkAdmin -a {username} -P {password} --ctkip -i {input_file}" \
+RSA_RUN_COMMAND = (
+    "./rsautil AMBulkAdmin -a {username} -P {password} --ctkip -i {input_file}"
     " -r {output_results_file} --o {output_log_file} --rej {output_reject_file} --newlog"
+)
 
 RSA_HEADER_LINE = "Action,TokSerial,TokEnabled\n"
 RSA_LIST_TOKEN_HEADER_LINE = "Action,CompareField,CompareType\n"
