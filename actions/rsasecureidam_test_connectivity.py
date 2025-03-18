@@ -1,6 +1,6 @@
 # File: rsasecureidam_test_connectivity.py
 #
-# Copyright (c) 2023-2024 Splunk Inc.
+# Copyright (c) 2023-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,9 +21,7 @@ from rsasecureidam_consts import RSA_TEST_CONNECTIVITY_FAIL, RSA_TEST_CONNECTIVI
 
 
 class TestConnectivity(BaseAction):
-
     def execute(self):
-
         ret_val, response = self.utils._start_connection()
 
         if phantom.is_fail(ret_val):

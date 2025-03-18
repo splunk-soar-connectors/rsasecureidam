@@ -1,6 +1,6 @@
 # File: test_rsasecureidam_list_tokens.py
 #
-# Copyright (c) 2023-2024 Splunk Inc.
+# Copyright (c) 2023-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,13 +21,13 @@ from unittest.mock import patch
 from rsasecureidam_connector import RsaSecureidAM
 from tests import rsasecureidam_config
 
+
 # from unittest.mock import patch
 
 
 @patch("rsasecureidam_utils._send_command")
 class ListTokensAction(unittest.TestCase):
     def setUp(self):
-
         self._connector = RsaSecureidAM()
         self.test_json = dict(rsasecureidam_config.TEST_JSON)
         self.test_json.update({"action": "list tokens", "identifier": "list_tokens"})

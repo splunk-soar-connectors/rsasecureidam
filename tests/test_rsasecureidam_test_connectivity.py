@@ -1,6 +1,6 @@
 # File: test_rsasecureidam_test_connectivity.py
 #
-# Copyright (c) 2023-2024 Splunk Inc.
+# Copyright (c) 2023-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,7 +27,6 @@ class TestConnectivityAction(unittest.TestCase):
     """Class to test the Test Connectivity action."""
 
     def setUp(self):
-
         self.connector = RsaSecureidAM()
         self.test_json = dict(rsasecureidam_config.TEST_JSON)
         self.test_json.update({"action": "test connectivity", "identifier": "test_connectivity"})
