@@ -1,6 +1,6 @@
 # File: rsasecureidam_utils.py
 #
-# Copyright (c) 2023-2024 Splunk Inc.
+# Copyright (c) 2023-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
-import socket
 import time
 
 import paramiko
@@ -24,13 +23,11 @@ from bs4 import UnicodeDammit
 import rsasecureidam_consts as consts
 
 
-class RSASecureIdAMUtils(object):
-
+class RSASecureIdAMUtils:
     def __init__(self, connector):
         self._connector = connector
 
     def _start_connection(self):
-
         self.hostname = self._connector.config["hostname"]
         self._username = self._connector.config["username"]
         self._password = self._connector.config["password"]
@@ -48,7 +45,7 @@ class RSASecureIdAMUtils(object):
                 hostname=self.hostname, username=self._username, password=self._password, allow_agent=False, look_for_keys=True, timeout=30
             )
         except Exception as e:
-            return False, f"SSH connection attempt failed. Please enter valid values for asset parameters. {str(e)}"
+            return False, f"SSH connection attempt failed. Please enter valid values for asset parameters. {e!s}"
 
         return True, "SSH connection successful"
 
@@ -64,7 +61,6 @@ class RSASecureIdAMUtils(object):
             return action_result.set_status(phantom.APP_ERROR, msg), []
 
         try:
-
             super_admin_user = self._connector.config.get("super_admin_user")
             super_admin_user_password = self._connector.config.get("super_admin_user_password")
 
@@ -73,10 +69,10 @@ class RSASecureIdAMUtils(object):
             output = ""
             data = ""
             filename = int(time.time())
-            input_file = "ph_rsa_{}.csv".format(filename)
-            output_results_file = "ph_rsa_results_{}.csv".format(filename)
-            output_file = "ph_rsa_{}.log".format(filename)
-            output_reject_file = "ph_rsa_rej_{}.csv".format(filename)
+            input_file = f"ph_rsa_{filename}.csv"
+            output_results_file = f"ph_rsa_results_{filename}.csv"
+            output_file = f"ph_rsa_{filename}.log"
+            output_reject_file = f"ph_rsa_rej_{filename}.csv"
             path = "/opt/rsa/am/utils/"
             if not (super_admin_user and super_admin_user_password):
                 return action_result.set_status(phantom.APP_ERROR, "Please enter valid Super Admin Username and Password."), []
@@ -96,7 +92,7 @@ class RSASecureIdAMUtils(object):
                 f.write(input_data)
                 f.close()
             except Exception as e:
-                return action_result.set_status(phantom.APP_ERROR, f"Error in creating input file. {str(e)}"), []
+                return action_result.set_status(phantom.APP_ERROR, f"Error in creating input file. {e!s}"), []
 
             trans = self._ssh_client.get_transport()
             self._shell_channel = trans.open_session()
@@ -187,7 +183,7 @@ class RSASecureIdAMUtils(object):
                     if sendpw and self._password:
                         try:
                             self._shell_channel.send(f"{self._password}\n")
-                        except socket.error:
+                        except OSError:
                             pass
                         sendpw = False
                 elif timeout and ctime - stime >= timeout:

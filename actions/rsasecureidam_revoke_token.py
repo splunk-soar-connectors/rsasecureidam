@@ -1,6 +1,6 @@
 # File: rsasecureidam_revoke_token.py
 #
-# Copyright (c) 2023-2024 Splunk Inc.
+# Copyright (c) 2023-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,9 +20,8 @@ from rsasecureidam_consts import RSA_HEADER_LINE, RSA_REVOKE_TOKEN_QUERY, RSA_TO
 
 
 class RevokeToken(BaseAction):
-
     def execute(self):
-        self._connector.save_progress("In action handler for: {0}".format(self._connector.get_action_identifier()))
+        self._connector.save_progress(f"In action handler for: {self._connector.get_action_identifier()}")
 
         token = self._param["token_serial"]
         data = RSA_HEADER_LINE

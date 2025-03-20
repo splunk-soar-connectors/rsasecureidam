@@ -1,6 +1,6 @@
 # File: rsasecureidam_list_tokens.py
 #
-# Copyright (c) 2023-2024 Splunk Inc.
+# Copyright (c) 2023-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,9 +20,8 @@ from rsasecureidam_consts import RSA_LIST_TOKEN_HEADER_LINE, RSA_LIST_TOKENS_QUE
 
 
 class ListTokens(BaseAction):
-
     def execute(self):
-        self._connector.save_progress("In action handler for: {0}".format(self._connector.get_action_identifier()))
+        self._connector.save_progress(f"In action handler for: {self._connector.get_action_identifier()}")
 
         list_only_assigned_tokens = self._param.get("list_only_assigned_tokens", True)
         data = RSA_LIST_TOKEN_HEADER_LINE

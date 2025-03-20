@@ -1,6 +1,6 @@
 # File: rsasecureidam_connector.py
 #
-# Copyright (c) 2023-2024 Splunk Inc.
+# Copyright (c) 2023-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,16 +30,13 @@ from actions import BaseAction
 
 
 class RsaSecureidAM(BaseConnector):
-
     def __init__(self):
-
         # Call the BaseConnectors init first
-        super(RsaSecureidAM, self).__init__()
+        super().__init__()
 
         self._state = None
 
     def handle_action(self, param):
-
         action_id = self.get_action_identifier()
         self.debug_print("action_id", self.get_action_identifier())
 
@@ -89,7 +86,6 @@ def main():
     verify = args.verify
 
     if username is not None and password is None:
-
         # User specified a username but not a password, so ask
         import getpass
 

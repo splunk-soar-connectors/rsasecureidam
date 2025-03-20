@@ -1,6 +1,6 @@
 # File: test_rsasecureidam_revoke_token.py
 #
-# Copyright (c) 2023-2024 Splunk Inc.
+# Copyright (c) 2023-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ from tests import rsasecureidam_config
 @patch("rsasecureidam_utils._send_command")
 class RevokeTokenAction(unittest.TestCase):
     def setUp(self):
-
         self._connector = RsaSecureidAM()
         self.test_json = dict(rsasecureidam_config.TEST_JSON)
         self.test_json.update({"action": "revoke token", "identifier": "revoke_token"})
