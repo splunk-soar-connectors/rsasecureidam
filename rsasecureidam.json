@@ -7,7 +7,7 @@
     "logo": "logo_rsasecureidam.svg",
     "logo_dark": "logo_rsasecureidam_dark.svg",
     "product_name": "RSA SecureID Authentication Manager",
-    "python_version": "3",
+    "python_version": "3.9, 3.13",
     "fips_compliant": true,
     "product_version_regex": ".*",
     "publisher": "Splunk",
