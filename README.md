@@ -1,9 +1,9 @@
 # RSA SecureID Authentication Manager
 
-Publisher: Splunk \
-Connector Version: 1.0.3 \
-Product Vendor: RSA \
-Product Name: RSA SecureID Authentication Manager \
+Publisher: Splunk <br>
+Connector Version: 1.0.3 <br>
+Product Vendor: RSA <br>
+Product Name: RSA SecureID Authentication Manager <br>
 Minimum Product Version: 6.3.0
 
 RSA SucureID Authentication Manager app to enable and revoke RSA token
@@ -28,16 +28,16 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions
 
-[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration \
-[enable token](#action-enable-token) - Enables RSA SecureID token to grant user access \
-[revoke token](#action-revoke-token) - Revoke RSA SecureID token to block user access \
+[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using supplied configuration <br>
+[enable token](#action-enable-token) - Enables RSA SecureID token to grant user access <br>
+[revoke token](#action-revoke-token) - Revoke RSA SecureID token to block user access <br>
 [list tokens](#action-list-tokens) - List RSA SecureID tokens
 
 ## action: 'test connectivity'
 
 Validate the asset configuration for connectivity using supplied configuration
 
-Type: **test** \
+Type: **test** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -52,7 +52,7 @@ No Output
 
 Enables RSA SecureID token to grant user access
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 The token must be assigned to a user to run this action.
@@ -79,7 +79,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Revoke RSA SecureID token to block user access
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 The token must be assigned to a user to run this action.
@@ -106,7 +106,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 List RSA SecureID tokens
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
