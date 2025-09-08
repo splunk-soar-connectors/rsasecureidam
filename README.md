@@ -1,7 +1,7 @@
 # RSA SecureID Authentication Manager
 
 Publisher: Splunk <br>
-Connector Version: 1.0.3 <br>
+Connector Version: 1.0.4 <br>
 Product Vendor: RSA <br>
 Product Name: RSA SecureID Authentication Manager <br>
 Minimum Product Version: 6.3.0
