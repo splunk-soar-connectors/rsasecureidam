@@ -19,7 +19,7 @@
     "latest_tested_versions": [
         "On Prem, Version 8.6"
     ],
-    "min_phantom_version": "6.3.0",
+    "min_phantom_version": "8.6.0",
     "app_wizard_version": "1.0.0",
     "configuration": {
         "hostname": {
@@ -77,7 +77,7 @@
             "parameters": {
                 "token_serial": {
                     "description": "Token serial of assigned RSA SecureID token",
-                    "data_type": "string",
+                    "data_type": "password",
                     "required": true,
                     "primary": true,
                     "contains": [
@@ -99,7 +99,7 @@
                 },
                 {
                     "data_path": "action_result.parameter.token_serial",
-                    "data_type": "string",
+                    "data_type": "password",
                     "contains": [
                         "rsa token"
                     ],
@@ -155,7 +155,7 @@
             "parameters": {
                 "token_serial": {
                     "description": "Token serial of assigned RSA SecureID token",
-                    "data_type": "string",
+                    "data_type": "password",
                     "required": true,
                     "primary": true,
                     "contains": [
@@ -177,7 +177,7 @@
                 },
                 {
                     "data_path": "action_result.parameter.token_serial",
-                    "data_type": "string",
+                    "data_type": "password",
                     "contains": [
                         "rsa token"
                     ],
