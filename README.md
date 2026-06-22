@@ -4,7 +4,7 @@ Publisher: Splunk <br>
 Connector Version: 1.0.4 <br>
 Product Vendor: RSA <br>
 Product Name: RSA SecureID Authentication Manager <br>
-Minimum Product Version: 6.3.0
+Minimum Product Version: 8.6.0
 
 RSA SucureID Authentication Manager app to enable and revoke RSA token
 
