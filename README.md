@@ -61,14 +61,14 @@ The token must be assigned to a user to run this action.
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**token_serial** | required | Token serial of assigned RSA SecureID token | string | `rsa token` |
+**token_serial** | required | Token serial of assigned RSA SecureID token | password | `rsa token` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.token_serial | string | `rsa token` | 0056121890128 |
+action_result.parameter.token_serial | password | `rsa token` | 0056121890128 |
 action_result.data | string | | |
 action_result.summary | string | | |
 action_result.message | string | | |
@@ -88,14 +88,14 @@ The token must be assigned to a user to run this action.
 
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**token_serial** | required | Token serial of assigned RSA SecureID token | string | `rsa token` |
+**token_serial** | required | Token serial of assigned RSA SecureID token | password | `rsa token` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.token_serial | string | `rsa token` | 0056121890128 |
+action_result.parameter.token_serial | password | `rsa token` | 0056121890128 |
 action_result.data | string | | |
 action_result.summary | string | | |
 action_result.message | string | | |
