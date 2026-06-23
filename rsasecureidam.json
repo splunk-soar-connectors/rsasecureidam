@@ -11,7 +11,7 @@
     "fips_compliant": true,
     "product_version_regex": ".*",
     "publisher": "Splunk",
-    "license": "Copyright (c) 2023-2025 Splunk Inc.",
+    "license": "Copyright (c) 2023-2026 Splunk Inc.",
     "app_version": "1.0.4",
     "utctime_updated": "2025-09-08T19:24:44.577511Z",
     "package_name": "phantom_rsasecureidam",
@@ -19,7 +19,7 @@
     "latest_tested_versions": [
         "On Prem, Version 8.6"
     ],
-    "min_phantom_version": "6.3.0",
+    "min_phantom_version": "8.6.0",
     "app_wizard_version": "1.0.0",
     "configuration": {
         "hostname": {
@@ -77,7 +77,7 @@
             "parameters": {
                 "token_serial": {
                     "description": "Token serial of assigned RSA SecureID token",
-                    "data_type": "string",
+                    "data_type": "password",
                     "required": true,
                     "primary": true,
                     "contains": [
@@ -99,7 +99,7 @@
                 },
                 {
                     "data_path": "action_result.parameter.token_serial",
-                    "data_type": "string",
+                    "data_type": "password",
                     "contains": [
                         "rsa token"
                     ],
@@ -155,7 +155,7 @@
             "parameters": {
                 "token_serial": {
                     "description": "Token serial of assigned RSA SecureID token",
-                    "data_type": "string",
+                    "data_type": "password",
                     "required": true,
                     "primary": true,
                     "contains": [
@@ -177,7 +177,7 @@
                 },
                 {
                     "data_path": "action_result.parameter.token_serial",
-                    "data_type": "string",
+                    "data_type": "password",
                     "contains": [
                         "rsa token"
                     ],
@@ -318,20 +318,16 @@
     "pip39_dependencies": {
         "wheel": [
             {
-                "module": "PyNaCl",
-                "input_file": "wheels/py36/PyNaCl-1.5.0-cp36-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl"
-            },
-            {
                 "module": "bcrypt",
                 "input_file": "wheels/py39/bcrypt-4.3.0-cp39-abi3-manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "cffi",
-                "input_file": "wheels/py39/cffi-1.17.1-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+                "input_file": "wheels/py39/cffi-2.0.0-cp39-cp39-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "cryptography",
-                "input_file": "wheels/py3/cryptography-45.0.7-cp37-abi3-manylinux_2_28_x86_64.whl"
+                "input_file": "wheels/py39/cryptography-49.0.0-cp39-abi3-manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "paramiko",
@@ -339,27 +335,31 @@
             },
             {
                 "module": "pycparser",
-                "input_file": "wheels/py3/pycparser-2.22-py3-none-any.whl"
+                "input_file": "wheels/py3/pycparser-2.23-py3-none-any.whl"
+            },
+            {
+                "module": "pynacl",
+                "input_file": "wheels/py3/pynacl-1.6.2-cp38-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl"
+            },
+            {
+                "module": "typing_extensions",
+                "input_file": "wheels/py3/typing_extensions-4.15.0-py3-none-any.whl"
             }
         ]
     },
     "pip313_dependencies": {
         "wheel": [
             {
-                "module": "PyNaCl",
-                "input_file": "wheels/py36/PyNaCl-1.5.0-cp36-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl"
-            },
-            {
                 "module": "bcrypt",
                 "input_file": "wheels/py39/bcrypt-4.3.0-cp39-abi3-manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "cffi",
-                "input_file": "wheels/py313/cffi-1.17.1-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+                "input_file": "wheels/py313/cffi-2.0.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "cryptography",
-                "input_file": "wheels/py3/cryptography-45.0.7-cp311-abi3-manylinux_2_28_x86_64.whl"
+                "input_file": "wheels/py3/cryptography-49.0.0-cp311-abi3-manylinux_2_28_x86_64.whl"
             },
             {
                 "module": "paramiko",
@@ -367,7 +367,11 @@
             },
             {
                 "module": "pycparser",
-                "input_file": "wheels/py3/pycparser-2.22-py3-none-any.whl"
+                "input_file": "wheels/py3/pycparser-3.0-py3-none-any.whl"
+            },
+            {
+                "module": "pynacl",
+                "input_file": "wheels/py3/pynacl-1.6.2-cp38-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl"
             }
         ]
     }
